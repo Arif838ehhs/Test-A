@@ -220,3 +220,65 @@ function showAnswers(){
 
 </body>
   </html>
+<!-- Tony robot -->
+<div id="tony">
+  🤖
+</div>
+
+<!-- Chat popup -->
+<div id="tonyChat" class="hidden">
+  <p>Salam! Necə kömək edə bilərəm? Mənim adım Tony-dir 🤖</p>
+  <textarea id="userInput" placeholder="Yazın..." rows="2"></textarea>
+  <button onclick="sendMessage()">Göndər</button>
+  <div id="chatResponse"></div>
+</div>
+
+<style>
+#tony{
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  font-size: 40px;
+  cursor: pointer;
+  transition: transform 0.3s;
+  animation: bounce 2s infinite;
+}
+#tony:hover{ transform: scale(1.2);}
+@keyframes bounce{
+  0%,100%{ transform: translateY(0);}
+  50%{ transform: translateY(-10px);}
+}
+#tonyChat{
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  width: 250px;
+  background: #2a004e;
+  color: white;
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: 0 0 15px rgba(180,0,255,0.5);
+}
+.hidden{ display: none;}
+textarea{width:100%; border-radius:8px; padding:5px; margin-top:5px; border:none;}
+button{margin-top:5px; padding:5px 10px; border:none; border-radius:8px; background:#6a00ff; color:white; cursor:pointer;}
+#chatResponse{margin-top:10px;}
+</style>
+
+<script>
+const tony=document.getElementById("tony");
+const chat=document.getElementById("tonyChat");
+tony.onclick=()=> chat.classList.toggle("hidden");
+
+function sendMessage(){
+  const input=document.getElementById("userInput").value;
+  const response=document.getElementById("chatResponse");
+  if(input.trim()===""){
+    response.innerHTML="Zəhmət olmasa bir şey yazın!";
+    return;
+  }
+  response.innerHTML="Tony deyir: Hazırda bunu başa düşə bilmirəm 😅"; // Sonra OpenAI API ilə əvəz ediləcək
+  document.getElementById("userInput").value="";
+}
+</script>
+
