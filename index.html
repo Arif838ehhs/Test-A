@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Test A - İnformatika</title>
+<style>
+  body {
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    background: linear-gradient(135deg, #0a0a0a, #2a004e);
+    color: white;
+    text-align: center;
+  }
+  header {
+    padding: 20px;
+    font-size: 26px;
+    font-weight: bold;
+    background: rgba(30,0,50,0.7);
+    box-shadow: 0 2px 10px rgba(128,0,255,0.3);
+  }
+  .section {
+    margin-top: 30px;
+  }
+  button {
+    background: linear-gradient(145deg, #6a00ff, #b300ff);
+    border: none;
+    color: white;
+    padding: 15px 40px;
+    margin: 10px;
+    font-size: 18px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  button:hover { background: linear-gradient(145deg, #b300ff, #6a00ff); transform: scale(1.05); }
+  .hidden { display: none; }
+  iframe { width: 90%; height: 600px; border: none; margin-top: 20px; border-radius: 10px; box-shadow: 0 0 15px rgba(180,0,255,0.4); }
+
+  /* Sınaq dizayn */
+  .question { margin: 20px auto; padding: 15px; border: 1px solid #b300ff; border-radius: 10px; max-width: 90%; background: rgba(30,0,50,0.5);}
+  .options button { margin: 5px; padding: 10px 25px; font-size: 16px; border-radius: 10px; border: none; background: #6a00ff; color: white; cursor: pointer; transition:0.3s;}
+  .options button:hover { background: #b300ff; }
+  input[type=text]{padding:8px; font-size:16px; border-radius:8px; border:none; width:80%; margin-top:10px;}
+  #bitdi { margin: 30px; padding: 15px 40px; font-size: 18px; border-radius: 12px; border: none; background: #ff00ff; color: white; cursor: pointer; transition:0.3s;}
+  #bitdi:hover { background: #ff66ff; }
+  .answer { margin-top:10px; color:#00ffcc; font-weight:bold; }
+  #result { font-size:22px; margin-top:20px; color:#ffcc00; }
+</style>
+</head>
+<body>
+
+<header>🧠 Test A</header>
+
+<!-- Baş səhifə -->
+<div id="main" class="section">
+  <h2>Fənni seç:</h2>
+  <button onclick="openSubject('informatika')">🖥️ İnformatika</button>
+  <button onclick="openSubject('riyaziyyat')">📐 Riyaziyyat</button>
+</div>
+
+<!-- İnformatika -->
+<div id="informatika" class="section hidden">
+  <h2>İnformatika</h2>
+  <button onclick="openSection('sinag_informatika')">📘 Sınaqlar</button>
+  <button onclick="openSection('qaydalar_informatika')">📗 Qaydalar</button>
+  <br><br>
+  <button onclick="goBack()">⬅️ Geri</button>
+</div>
+
+<!-- Riyaziyyat -->
+<div id="riyaziyyat" class="section hidden">
+  <h2>Riyaziyyat</h2>
+  <button onclick="openSection('sinag_riyaziyyat')">📘 Sınaqlar</button>
+  <button onclick="openSection('qaydalar_riyaziyyat')">📗 Qaydalar</button>
+  <br><br>
+  <button onclick="goBack()">⬅️ Geri</button>
+</div>
+
+<!-- İnformatika Qaydalar -->
+<div id="qaydalar_informatika" class="section hidden">
+  <h2>İnformatika Qaydalar</h2>
+  <iframe src="https://drive.google.com/file/d/1L4cWgmXbwi4nEYV9hAySHK09qL9gn2e-/preview"></iframe>
+  <br><br>
+  <button onclick="goBack()">⬅️ Geri</button>
+</div>
+
+<!-- İnformatika Sınaqlar -->
+<div id="sinag_informatika" class="section hidden">
+  <h2>Informatika Sınaqlar</h2>
+  <button onclick="openSection('adi_sinaqlar')">🧾 Adi Sınaqlar</button>
+  <button onclick="openSection('online_sinaqlar')">🌐 Online Sınaqlar</button>
+  <br><br>
+  <button onclick="goBack()">⬅️ Geri</button>
+</div>
+
+<!-- Adi Sınaqlar -->
+<div id="adi_sinaqlar" class="section hidden">
+  <h2>Adi Sınaqlar</h2>
+  <button onclick="openSection('sinaq1')">📘 Sınaq 1</button>
+  <br><br>
+  <button onclick="goBack()">⬅️ Geri</button>
+</div>
+
+<!-- Online Sınaqlar (boş) -->
+<div id="online_sinaqlar" class="section hidden">
+  <h2>Online Sınaqlar</h2>
+  <p>Buraya gələcəkdə linklər və ya interaktiv testlər əlavə olunacaq.</p>
+  <br>
+  <button onclick="goBack()">⬅️ Geri</button>
+</div>
+
+<!-- Riyaziyyat Sınaqları -->
+<div id="sinag_riyaziyyat" class="section hidden">
+  <h2>Riyaziyyat Sınaqları</h2>
+  <p>Buraya sınaq linkləri əlavə olunacaq.</p>
+  <button onclick="goBack()">⬅️ Geri</button>
+</div>
+
+<!-- Riyaziyyat Qaydalar -->
+<div id="qaydalar_riyaziyyat" class="section hidden">
+  <h2>Riyaziyyat Qaydalar</h2>
+  <p>Buraya qaydalar PDF əlavə olunacaq.</p>
+  <button onclick="goBack()">⬅️ Geri</button>
+</div>
+
+<!-- Sınaq 1 (interaktiv 25 sual) -->
+<div id="sinaq1" class="section hidden">
+<h2>Sınaq 1 - İnteraktiv</h2>
+<h3>Ümumi 100 bal</h3>
+<div id="quiz"></div>
+<button id="bitdi" onclick="showAnswers()">Bitdi</button>
+<div id="result"></div>
+<button onclick="goBack()">⬅️ Geri</button>
+</div>
+
+<script>
+// Naviqasiya funksiyaları
+function openSubject(id){
+  document.getElementById("main").classList.add("hidden");
+  document.getElementById(id).classList.remove("hidden");
+}
+function openSection(id){
+  document.querySelectorAll('.section').forEach(sec=>sec.classList.add('hidden'));
+  document.getElementById(id).classList.remove('hidden');
+}
+function goBack(){
+  document.querySelectorAll('.section').forEach(sec=>sec.classList.add('hidden'));
+  document.getElementById("main").classList.remove("hidden");
+}
+
+// Sınaq 1 suallar
+const questions=[
+{q:"İkilik say sisteminin əsas ədədi hansıdır?", options:["8","2","10"], answer:1, type:"mcq", score:3},
+{q:"Onluq ədəd 5 ikilik sistemdə necə yazılır?", options:["100","101","110"], answer:1, type:"mcq", score:3},
+{q:"İkilik ədəd 1101 onluq sistemdə neçə edir?", options:["12","13","15"], answer:1, type:"mcq", score:3},
+{q:"Onaltılıq say sistemində “A” hərfi hansı ədədə bərabərdir?", options:["9","10","11"], answer:1, type:"mcq", score:3},
+{q:"Onluq ədəd 15 ikilik sistemdə necə yazılır?", options:["1111","1010","1100"], answer:0, type:"mcq", score:3},
+{q:"2-lik say sistemindən 8-lik sistemə keçmək üçün neçə bit birləşdirilir?", options:["2","3","4"], answer:1, type:"mcq", score:3},
+{q:"8-lik sistemin əsası hansıdır?", options:["8","10","2"], answer:0, type:"mcq", score:3},
+{q:"1010₂ = ?₁₆", options:["A","10","B"], answer:0, type:"mcq", score:3},
+{q:"Onluq ədəd 32 ikilikdə necə yazılır?", options:["10000","100010","100000"], answer:2, type:"mcq", score:3},
+{q:"Onluq ədəd 8 onaltılıq sistemdə necə yazılır?", options:["8","A","10"], answer:0, type:"mcq", score:3},
+{q:"1 kilobayt neçə bayta bərabərdir?", options:["100","512","1024"], answer:2, type:"mcq", score:3},
+{q:"11111111₂ say sistemində bu ədəd onluq sistemdə neçədir?", options:["255","256","254"], answer:0, type:"mcq", score:3},
+{q:"8-lik ədəd 17₈ onluqda necədir?", options:["15","13","14"], answer:0, type:"mcq", score:3},
+{q:"16-lıq sistemdə “F” hərfi hansı ədədə bərabərdir?", options:["14","15","16"], answer:1, type:"mcq", score:3},
+{q:"1011₂ = ?₁₀", options:["10","11","12"], answer:1, type:"mcq", score:3},
+{q:"2-lik ədəd 10000₂ onluqda neçədir?", options:["16","8","32"], answer:0, type:"mcq", score:3},
+{q:"8-lik sistemdə ədədin hər bir rəqəmi hansı aralıqdadır?", options:["0–8","1–8","0–7"], answer:2, type:"mcq", score:3},
+{q:"111₂ × 10₂ = ?₂", options:["1010","1110","1000"], answer:2, type:"mcq", score:3},
+{q:"101₂ + 11₂ = ?₂", options:["1000","111","110"], answer:1, type:"mcq", score:3},
+{q:"16-lıq ədəd “1C” onluqda neçədir?", options:["27","28","29"], answer:1, type:"mcq", score:3},
+{q:"Onluq ədəd 45-i ikilik say sisteminə çevir.", answer:"101101₂", type:"open", score:8},
+{q:"İkilik ədəd 11010₂-nı onluq sistemdə ifadə et.", answer:"26₁₀", type:"open", score:8},
+{q:"Onaltılıq ədəd 2F₁₆ onluq sistemdə neçə edir?", answer:"47₁₀", type:"open", score:8},
+{q:"8-lik ədəd 72₈-i ikilik sistemə çevir.", answer:"111010₂", type:"open", score:8},
+{q:"Say sistemləri arasında keçid etməyin əsas prinsiplərini qısa şəkildə izah et.", answer:"Hər say sisteminin əsası var (2,8,10,16). Keçid zamanı ədəd əsasın qüvvətləri ilə vurulur və cəmlənir. Tərsinə keçiddə isə ədəd əsasa bölünərək qalıqlar tərsinə yazılır.", type:"open", score:8}
+];
+
+const quizDiv=document.getElementById('quiz');
+questions.forEach((q,i)=>{
+  const div=document.createElement('div');
+  div.className='question'; div.id='q'+i;
+  let html=`<p><strong>${i+1}. ${q.q}</strong></p>`;
+  if(q.type==='mcq'){
+    html+='<div class="options">';
+    q.options.forEach((opt,j)=>{
+      html+=`<button onclick="selectOption(${i},${j})">${opt}</button>`;
+    });
+    html+='</div>';
+  } else if(q.type==='open'){
+    html+=`<input type="text" id="input${i}" placeholder="Cavabınızı yazın">`;
+  }
+  html+=`<div class="answer" id="ans${i}"></div>`;
+  div.innerHTML=html;
+  quizDiv.appendChild(div);
+});
+
+let userAnswers=Array(questions.length).fill(null);
+
+function selectOption(qIndex,optIndex){ userAnswers[qIndex]=optIndex; }
+
+function showAnswers(){
+  let totalScore=0;
+  questions.forEach((q,i)=>{
+    const ansDiv=document.getElementById('ans'+i);
+    if(q.type==='mcq'){
+      ansDiv.innerHTML=`Doğru cavab: ${q.options[q.answer]}`;
+      if(userAnswers[i]===q.answer) totalScore+=q.score;
+    } else if(q.type==='open'){
+      const userInput=document.getElementById('input'+i).value.trim();
+      ansDiv.innerHTML=`Doğru cavab: ${q.answer}`;
+      if(userInput===q.answer) totalScore+=q.score;
+    }
+  });
+  document.getElementById('result').innerHTML=`Ümumi bal: ${totalScore} / 100`;
+}
+</script>
+
+</body>
+</html>
