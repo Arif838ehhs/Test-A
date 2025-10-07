@@ -51,9 +51,15 @@
 <body>
 
 <header>🧠 Test A</header>
-
+<div id="loginPage" class="section">
+  <h2>Giriş edin</h2>
+  <input type="text" id="studentName" placeholder="Adınızı yazın"><br>
+  <input type="password" id="teacherPass" class="hidden" placeholder="Parol"><br>
+  <button onclick="selectRole('student')">Şagird</button>
+  <button onclick="selectRole('teacher')">Məllim</button>
+</div>
 <!-- Baş səhifə -->
-<div id="main" class="section">
+<div id="main" class="section hidden">
   <h2>Fənni seç:</h2>
   <button onclick="openSubject('informatika')">🖥️ İnformatika</button>
   <button onclick="openSubject('riyaziyyat')">📐 Riyaziyyat</button>
@@ -280,5 +286,29 @@ function sendMessage(){
   response.innerHTML="Tony deyir: Hazırda bunu başa düşə bilmirəm 😅"; // Sonra OpenAI API ilə əvəz ediləcək
   document.getElementById("userInput").value="";
 }
+let currentRole = null;
+
+function selectRole(role){
+  if(role==='student'){
+    document.getElementById('teacherPass').classList.add('hidden');
+    const name = document.getElementById('studentName').value.trim();
+    if(name===''){ alert("Adınızı yazın!"); return;}
+    currentRole='student';
+    showMainPage();
+  } else if(role==='teacher'){
+    document.getElementById('teacherPass').classList.remove('hidden');
+    const userPass = prompt("Parol daxil edin:","");
+    if(userPass==='arif_2009'){
+      currentRole='teacher';
+      showMainPage();
+    } else { alert("Yanlış parol!"); return;}
+  }
+}
+
+function showMainPage(){
+  document.getElementById('loginPage').classList.add('hidden');
+  document.getElementById('main').classList.remove('hidden');
+}
 </script>
 
+  
