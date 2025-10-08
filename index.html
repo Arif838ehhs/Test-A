@@ -132,24 +132,33 @@
 </div>
 
 <!-- Sınaq 1 (interaktiv 25 sual) -->
+<div id="sinaq1" class="section hidden">
+  <h2>Sınaq 1 - İnteraktiv</h2>
+  <h3>Ümumi 100 bal</h3>
+
+  <!-- vaxt və başla düyməsi -->
+  <div id="timer1" style="font-weight:bold; color:red; font-size:18px;"></div>
+  <button id="start1" onclick="startExam(1)">🟢 Başla</button>
+
+  <div id="quiz" style="display:none;"></div>
+  <button id="bitdi" onclick="showAnswers()" style="display:none;">Bitdi</button>
+  <div id="result"></div>
+  <button onclick="goBack()">⬅️ Geri</button>
+</div>
 <!-- Sınaq 2 (interaktiv) -->
 <div id="sinaq2" class="section hidden">
   <h2>Sınaq 2 - İnteraktiv</h2>
   <h3>Ümumi 100 bal</h3>
-  <div id="quiz2"></div>
-  <button id="bitdi2" onclick="showAnswers2()">Bitdi</button>
+
+  <!-- vaxt və başla düyməsi -->
+  <div id="timer2" style="font-weight:bold; color:red; font-size:18px;"></div>
+  <button id="start2" onclick="startExam(2)">🟢 Başla</button>
+
+  <div id="quiz2" style="display:none;"></div>
+  <button id="bitdi2" onclick="showAnswers2()" style="display:none;">Bitdi</button>
   <div id="result2"></div>
   <button onclick="goBack()">⬅️ Geri</button>
 </div>
-<div id="sinaq1" class="section hidden">
-<h2>Sınaq 1 - İnteraktiv</h2>
-<h3>Ümumi 100 bal</h3>
-<div id="quiz"></div>
-<button id="bitdi" onclick="showAnswers()">Bitdi</button>
-<div id="result"></div>
-<button onclick="goBack()">⬅️ Geri</button>
-</div>
-
 <script>
 // Naviqasiya funksiyaları
 function openSubject(id){
@@ -243,6 +252,10 @@ function selectOption2(qIndex, optIndex) {
 }
 
 function showAnswers2() {
+  clearInterval(timerInterval); // ⬅️ Vaxtı dayandırır
+  const timerDiv = document.getElementById('timer2'); // ⬅️ Timer div-i seçirik
+  timerDiv.textContent = "⏹️ Vaxt dayandırıldı!"; // ⬅️ Mesaj göstər
+
   let totalScore2 = 0;
   questions2.forEach((q, i) => {
     const ansDiv = document.getElementById('ans2_' + i);
@@ -276,6 +289,10 @@ let userAnswers=Array(questions.length).fill(null);
 function selectOption(qIndex,optIndex){ userAnswers[qIndex]=optIndex; }
 
 function showAnswers(){
+  clearInterval(timerInterval); // ⬅️ Vaxtı dayandırır
+  const timerDiv = document.getElementById('timer1'); // ⬅️ Timer div-i seçirik
+  timerDiv.textContent = "⏹️ Vaxt dayandırıldı!"; // ⬅️ Mesaj göstər
+
   let totalScore=0;
   questions.forEach((q,i)=>{
     const ansDiv=document.getElementById('ans'+i);
@@ -376,6 +393,39 @@ function selectRole(role){
 function showMainPage(){
   document.getElementById('loginPage').classList.add('hidden');
   document.getElementById('main').classList.remove('hidden');
+}
+// ====== Vaxt Sayacı və Başlatma ======
+let timerInterval;
+
+function startExam(sinaqNo) {
+  let timeLeft = 2700; // 45 dəqiqə (saniyə ilə)
+  let timerDiv = document.getElementById('timer' + sinaqNo);
+  let startBtn = document.getElementById('start' + sinaqNo);
+  let quizDiv = document.getElementById('quiz' + (sinaqNo === 1 ? '' : '2'));
+  let bitdiBtn = document.getElementById('bitdi' + (sinaqNo === 1 ? '' : '2'));
+
+  // Başla düyməsini gizlət, test bölməsini göstər
+  startBtn.style.display = 'none';
+  quizDiv.style.display = 'block';
+  bitdiBtn.style.display = 'inline-block';
+
+  // Geri sayım funksiyası
+  function updateTimer() {
+    const min = Math.floor(timeLeft / 60);
+    const sec = timeLeft % 60;
+    timerDiv.textContent = `Vaxt: ${min}:${sec.toString().padStart(2, '0')}`;
+    timeLeft--;
+
+    if (timeLeft < 0) {
+      clearInterval(timerInterval);
+      timerDiv.textContent = "⏰ Vaxt bitdi!";
+      if (sinaqNo === 1) showAnswers();
+      if (sinaqNo === 2) showAnswers2();
+    }
+  }
+
+  updateTimer();
+  timerInterval = setInterval(updateTimer, 1000);
 }
 </script>
 
