@@ -308,7 +308,71 @@ function showAnswers(){
   document.getElementById('result').innerHTML=`Ümumi bal: ${totalScore} / 100`;
 }
 </script>
+<!-- Tema dəyişmə düyməsi -->
+<div id="themeToggle">
+  🌗
+</div>
 
+<style>
+#themeToggle {
+  position: fixed;
+  bottom: 25px;
+  left: 20px;
+  font-size: 28px;
+  cursor: pointer;
+  background: rgba(90,0,150,0.8);
+  border-radius: 50%;
+  padding: 1px;
+  transition: 0.3s;
+  box-shadow: 0 0 10px rgba(200,0,255,0.4);
+  animation: pulse 2s infinite;
+}
+#themeToggle:hover {
+  transform: rotate(20deg) scale(1.2);
+}
+@keyframes pulse {
+  0%,100% { box-shadow: 0 0 10px rgba(200,0,255,0.4); }
+  50% { box-shadow: 0 0 25px rgba(200,0,255,0.8); }
+}
+
+/* Açıq tema üçün dəyişikliklər */
+.light-theme {
+  background: linear-gradient(135deg, #ffffff, #c9a0ff);
+  color: #000;
+}
+.light-theme header {
+  background: rgba(230,230,255,0.8);
+  color: #000;
+}
+.light-theme button {
+  background: linear-gradient(145deg, #c27aff, #e5b3ff);
+  color: #000;
+}
+.light-theme .question {
+  background: rgba(255,255,255,0.7);
+  border-color: #c27aff;
+}
+.light-theme iframe {
+  box-shadow: 0 0 10px rgba(150,0,200,0.4);
+}
+</style>
+
+<script>
+const themeButton = document.getElementById("themeToggle");
+let currentTheme = "dark"; // ilkin vəziyyət
+
+themeButton.onclick = () => {
+  if (currentTheme === "dark") {
+    document.body.classList.add("light-theme");
+    currentTheme = "light";
+    themeButton.textContent = "🌞";
+  } else {
+    document.body.classList.remove("light-theme");
+    currentTheme = "dark";
+    themeButton.textContent = "🌗";
+  }
+};
+</script>
 </body>
   </html>
 <!-- Tony robot -->
