@@ -104,6 +104,7 @@
 <div id="adi_sinaqlar" class="section hidden">
   <h2>Adi Sınaqlar</h2>
   <button onclick="openSection('sinaq1')">📘 Sınaq 1</button>
+  <button onclick="openSection('sinaq2')">📗 Sınaq 2</button>
   <br><br>
   <button onclick="goBack()">⬅️ Geri</button>
 </div>
@@ -131,6 +132,15 @@
 </div>
 
 <!-- Sınaq 1 (interaktiv 25 sual) -->
+<!-- Sınaq 2 (interaktiv) -->
+<div id="sinaq2" class="section hidden">
+  <h2>Sınaq 2 - İnteraktiv</h2>
+  <h3>Ümumi 100 bal</h3>
+  <div id="quiz2"></div>
+  <button id="bitdi2" onclick="showAnswers2()">Bitdi</button>
+  <div id="result2"></div>
+  <button onclick="goBack()">⬅️ Geri</button>
+</div>
 <div id="sinaq1" class="section hidden">
 <h2>Sınaq 1 - İnteraktiv</h2>
 <h3>Ümumi 100 bal</h3>
@@ -183,6 +193,64 @@ const questions=[
 {q:"8-lik ədəd 72₈-i ikilik sistemə çevir.", answer:"111010₂", type:"open", score:8},
 {q:"Say sistemləri arasında keçid etməyin əsas prinsiplərini qısa şəkildə izah et.", answer:"Hər say sisteminin əsası var (2,8,10,16). Keçid zamanı ədəd əsasın qüvvətləri ilə vurulur və cəmlənir. Tərsinə keçiddə isə ədəd əsasa bölünərək qalıqlar tərsinə yazılır.", type:"open", score:8}
 ];
+// ===== Sınaq 2 sualları =====
+const questions2 = [
+  {q:"Kompyuterin mərkəzi prosessoru nə iş görür?", options:["Məlumatları saxlayır","Əməliyyatları yerinə yetirir","Qrafikləri göstərir"], answer:1, type:"mcq", score:4},
+  {q:"RAM yaddaşının əsas funksiyası nədir?", options:["Proqramları daimi saxlamaq","Müvəqqəti yaddaş rolunu oynamaq","Monitoru idarə etmək"], answer:1, type:"mcq", score:4},
+  {q:"Hard disk hansı növ yaddaşdır?", options:["Daimi","Müvəqqəti","Portativ"], answer:0, type:"mcq", score:4},
+  {q:"“Bit” nəyi ifadə edir?", options:["8 bayt","1 bayt","Ən kiçik məlumat vahidi"], answer:2, type:"mcq", score:4},
+  {q:"Ən çox istifadə olunan əməliyyat sistemi hansıdır?", options:["Linux","Windows","MacOS"], answer:1, type:"mcq", score:4},
+  {q:"Monitorun ölçüsü nə ilə ölçülür?", options:["İnç","Sm","Piksel"], answer:0, type:"mcq", score:4},
+  {q:"Skaner hansı məqsədlə istifadə olunur?", options:["Səs yazmaq üçün","Şəkilləri rəqəmsallaşdırmaq üçün","Video oynatmaq üçün"], answer:1, type:"mcq", score:4},
+  {q:"Sürətli əməliyyatlar üçün istifadə olunan yaddaş hansıdır?", options:["Cache","HDD","CD-ROM"], answer:0, type:"mcq", score:4},
+  {q:"Brauzer nə üçündür?", options:["Sistem fayllarını idarə etmək üçün","İnternet səhifələrinə baxmaq üçün","Kompüteri qorumaq üçün"], answer:1, type:"mcq", score:4},
+  {q:"Kompüterdə fayl uzantısı nəyi göstərir?", options:["Faylın ölçüsünü","Faylın növünü","Faylın tarixini"], answer:1, type:"mcq", score:4},
+  {q:"1 bayt neçə bitdir?", options:["8","4","16"], answer:0, type:"mcq", score:4},
+  {q:"RAM və ROM arasında əsas fərq nədir?", options:["Biri daimi, biri müvəqqəti yaddaşdır","Eyni funksiyanı yerinə yetirir","ROM daha sürətlidir"], answer:0, type:"mcq", score:4},
+  {q:"Əməliyyat sistemi hansı funksiyanı yerinə yetirir?", options:["Yaddaşı təmizləyir","İstifadəçi ilə aparat arasında əlaqə yaradır","Şəbəkəni bağlayır"], answer:1, type:"mcq", score:4},
+  {q:"Maus hansı qurğu növünə aiddir?", options:["Çıxış","Giriş","Əlavə"], answer:1, type:"mcq", score:4},
+  {q:"Kompüterdə antivirus proqramı nə iş görür?", options:["Virusları tapır və silir","Proqramları açır","Ekran parlaqlığını dəyişir"], answer:0, type:"mcq", score:4},
+  {q:"İnternetdə fayl paylaşmaq üçün hansı xidmət istifadə olunur?", options:["Google Drive","Paint","Notepad"], answer:0, type:"mcq", score:4},
+  {q:"Proqramlaşdırma dilləri nəyə xidmət edir?", options:["Kompüteri dekorasiya etmək üçün","Kompüterə tapşırıqlar vermək üçün","Yaddaş artırmaq üçün"], answer:1, type:"mcq", score:4},
+  {q:"IP ünvan nədir?", options:["Şəxsi e-poçt","İnternetdə cihazın unikal nömrəsi","DNS server adı"], answer:1, type:"mcq", score:4},
+  {q:"HTML nəyə görə istifadə olunur?", options:["Veb səhifə yaratmaq üçün","Şəkil çəkmək üçün","Cədvəl hazırlamaq üçün"], answer:0, type:"mcq", score:4},
+  {q:"Algoritm nədir?", options:["Əməliyyat sisteminin adı","Tapşırığın həll qaydası","Məlumat bazası növü"], answer:1, type:"mcq", score:4}
+];
+
+// ===== Sınaq 2 interfeysi =====
+const quizDiv2 = document.getElementById('quiz2');
+questions2.forEach((q, i) => {
+  const div = document.createElement('div');
+  div.className = 'question';
+  div.id = 'q2_' + i;
+  let html = `<p><strong>${i+1}. ${q.q}</strong></p>`;
+  if (q.type === 'mcq') {
+    html += '<div class="options">';
+    q.options.forEach((opt, j) => {
+      html += `<button onclick="selectOption2(${i},${j})">${opt}</button>`;
+    });
+    html += '</div>';
+  }
+  html += `<div class="answer" id="ans2_${i}"></div>`;
+  div.innerHTML = html;
+  quizDiv2.appendChild(div);
+});
+
+let userAnswers2 = Array(questions2.length).fill(null);
+
+function selectOption2(qIndex, optIndex) {
+  userAnswers2[qIndex] = optIndex;
+}
+
+function showAnswers2() {
+  let totalScore2 = 0;
+  questions2.forEach((q, i) => {
+    const ansDiv = document.getElementById('ans2_' + i);
+    ansDiv.innerHTML = `Doğru cavab: ${q.options[q.answer]}`;
+    if (userAnswers2[i] === q.answer) totalScore2 += q.score;
+  });
+  document.getElementById('result2').innerHTML = `Ümumi bal: ${totalScore2} / 80`;
+}
 
 const quizDiv=document.getElementById('quiz');
 questions.forEach((q,i)=>{
@@ -283,7 +351,7 @@ function sendMessage(){
     response.innerHTML="Zəhmət olmasa bir şey yazın!";
     return;
   }
-  response.innerHTML="Tony deyir: Hazırda bunu başa düşə bilmirəm 😅"; // Sonra OpenAI API ilə əvəz ediləcək
+  response.innerHTML="Tony : Cavab üçün yetərli qədər ağıllı deyilsən  🙂"; // Sonra OpenAI API ilə əvəz ediləcək
   document.getElementById("userInput").value="";
 }
 let currentRole = null;
