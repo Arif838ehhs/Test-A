@@ -46,6 +46,17 @@
   #bitdi:hover { background: #ff66ff; }
   .answer { margin-top:10px; color:#00ffcc; font-weight:bold; }
   #result { font-size:22px; margin-top:20px; color:#ffcc00; }
+  header {
+  opacity: 0;
+  transform: translateY(-50px);
+  animation: slideDownFade 1s forwards;
+  animation-delay: 0.5s; /* 0.5 saniyə gecikmə */
+}
+
+@keyframes slideDownFade {
+  0% { opacity: 0; transform: translateY(-50px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
 </style>
 </head>
 <body>
